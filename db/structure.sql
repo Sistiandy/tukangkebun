@@ -82,27 +82,72 @@ COLLATE = utf8_general_ci;
 
 
 -- -----------------------------------------------------
+-- Table `province`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `province` (
+  `province_id` INT NOT NULL AUTO_INCREMENT ,
+  `province_name` VARCHAR(100) NULL ,
+  PRIMARY KEY (`province_id`) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `kabupaten`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `kabupaten` (
+  `kabupaten_id` INT NOT NULL AUTO_INCREMENT ,
+  `kabupaten_name` VARCHAR(100) NULL ,
+  `province_province_id` INT NULL ,
+  PRIMARY KEY (`kabupaten_id`) ,
+  INDEX `fk_kabupaten_province1_idx` (`province_province_id` ASC) ,
+  CONSTRAINT `fk_kabupaten_province1`
+    FOREIGN KEY (`province_province_id` )
+    REFERENCES `province` (`province_id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
 -- Table `merchants`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `merchants` (
   `merchant_id` INT NOT NULL AUTO_INCREMENT ,
-  `username` VARCHAR(45) NULL ,
   `password` VARCHAR(100) NULL ,
   `merchant_name` VARCHAR(100) NULL ,
   `merchant_phone` VARCHAR(20) NULL ,
+  `phone_is_whatshapp` TINYINT(1) NULL ,
   `merchant_address` TEXT NULL ,
   `merchant_email` VARCHAR(45) NULL ,
+  `merchant_logo` VARCHAR(100) NULL ,
+  `merchant_cover` VARCHAR(100) NULL ,
+  `merchant_description` TEXT NULL ,
+  `merchant_web` VARCHAR(100) NULL ,
+  `merchant_facebook` VARCHAR(45) NULL ,
+  `merchant_twitter` VARCHAR(45) NULL ,
+  `merchant_pob` VARCHAR(45) NULL ,
+  `merchant_dob` DATE NULL ,
+  `merchant_is_active` TINYINT(1) NULL DEFAULT 0 ,
+  `merchant_package` ENUM('Bronze', 'Silver', 'Gold') NULL ,
   `merchant_owner_name` VARCHAR(100) NULL ,
   `merchant_owner_phone` VARCHAR(20) NULL ,
+  `merchant_owner_ktp` VARCHAR(100) NULL ,
   `merchant_is_deleted` TINYINT(1) NULL ,
-  `users_user_id` INT(11) NULL ,
+  `province_province_id` INT NULL ,
+  `kabupaten_kabupaten_id` INT NULL ,
   `merchant_input_date` TIMESTAMP NULL ,
   `merchant_last_update` TIMESTAMP NULL ,
   PRIMARY KEY (`merchant_id`) ,
-  INDEX `fk_merchants_users1_idx` (`users_user_id` ASC) ,
-  CONSTRAINT `fk_merchants_users1`
-    FOREIGN KEY (`users_user_id` )
-    REFERENCES `users` (`user_id` )
+  INDEX `fk_merchants_kabupaten1_idx` (`kabupaten_kabupaten_id` ASC) ,
+  INDEX `fk_merchants_province1_idx` (`province_province_id` ASC) ,
+  CONSTRAINT `fk_merchants_kabupaten1`
+    FOREIGN KEY (`kabupaten_kabupaten_id` )
+    REFERENCES `kabupaten` (`kabupaten_id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_merchants_province1`
+    FOREIGN KEY (`province_province_id` )
+    REFERENCES `province` (`province_id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;

@@ -47,9 +47,6 @@
                     <li class="<?php echo ($this->uri->segment(2) == 'merchants' AND $this->uri->segment(3) != 'add') ? 'active' : '' ?> ">
                         <a href="<?php echo site_url('admin/merchants') ?>"><i class="fa  <?php echo ($this->uri->segment(2) == 'merchants' AND $this->uri->segment(3) != 'add') ? 'fa-dot-circle-o' : 'fa-circle-o' ?>"></i> Daftar Pedagang</a>
                     </li>
-                    <li class="<?php echo ($this->uri->segment(2) == 'merchants' AND $this->uri->segment(3) == 'add') ? 'active' : '' ?> ">
-                        <a href="<?php echo site_url('admin/merchants/add') ?>"><i class="fa  <?php echo ($this->uri->segment(2) == 'merchants' AND $this->uri->segment(3) == 'add') ? 'fa-dot-circle-o' : 'fa-circle-o' ?>"></i> Tambah Pedagang</a>
-                    </li>
                 </ul>
             </li>
             <li class="<?php echo ($this->uri->segment(2) == 'users') ? 'active' : '' ?> treeview">
